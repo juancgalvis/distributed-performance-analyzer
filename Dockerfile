@@ -6,12 +6,12 @@ RUN mix local.hex --force \
     && mix local.rebar --force \
     && mix deps.get \
     && mix deps.compile \
-    && MIX_ENV=prod mix distillery.release \
-    && rm -rf /app/_build/prod/rel/perf_analizer/etc
+    && MIX_ENV=prod mix escript.build
 
 FROM elixir:1.11.3-alpine
 WORKDIR /app
 RUN apk update && apk upgrade && apk add bash
-COPY --from=0 /app/_build/prod /app
-VOLUME /app/rel/perf_analizer/etc
-ENTRYPOINT exec /app/rel/perf_analizer/bin/perf_analizer foreground
+COPY --from=0 /app/perf_analizer /app
+COPY config /app/
+VOLUME /app/result/
+ENTRYPOINT exec /app/perf_analizer
