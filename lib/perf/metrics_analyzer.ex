@@ -68,7 +68,7 @@ defmodule Perf.MetricsAnalyzer do
       end
     )
 
-    {:ok, file} = File.open("result.csv", [:write])
+    {:ok, file} = File.open("result/result.csv", [:write])
     IO.puts("####CSV#######")
     header = "concurrency, throughput, mean latency, max latency"
     IO.puts(header)
