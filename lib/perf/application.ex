@@ -73,14 +73,14 @@ defmodule ConfParser do
       query: Map.get(parts, :query, ""),
     }
   end
+  defp compose_url_parts(parts) do
+    raise "Malformed url: #{inspect(parts)}"
+  end
 
   def path(path,  nil), do: path
   def path(path,  ""), do: path
   def path(path, query), do: "#{path}?#{query}"
 
-  defp compose_url_parts(parts) do
-    raise "Malformed url: #{inspect(parts)}"
-  end
 
   defp default_port("http"), do: 80
   defp default_port("https"), do: 443
